@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Search</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <nav>
+        <nav class="nav">
           <a href="img-search.html">Image Search</a>
           <a href="advanced-search.html">Advanced Search</a>
         </nav>
@@ -14,7 +15,10 @@
           <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google logo">
           <form class="search-form" action="https://google.com/search">
             <input class="text-input" type="text" name="q">
-            <input class="button" type="submit" value="Google Search">
+            <div class="submit-group">
+              <input class="button" type="submit" value="Google Search">
+              <input class="button" type="submit" name="btnI" value="I'm Feeling Lucky"></input>
+            </div>
           </form>
         </div>
     </body>

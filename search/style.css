@@ -1,4 +1,4 @@
-body, nav, a, form, input, img {
+body, nav, a, form, input, img, h1, p {
   margin: 0;
   padding: 0;
   border: none;
@@ -10,6 +10,10 @@ body, nav, a, form, input, img {
   color: inherit;
 }
 
+img {
+  max-width: 100%;
+}
+
 body {
   height: 100vh;
   position: relative;
@@ -17,19 +21,19 @@ body {
   font-size: 18px;
 }
 
-nav {
+.nav {
   position: absolute;
   right: 0;
   padding: 20px;
   z-index: 999;
 }
 
-nav > a {
+.nav a, .nav-bar-links a {
   margin: 10px;
   font-size: 15px;
 }
 
-nav > a:hover {
+.nav a:hover, .nav-bar-links a:hover {
   text-decoration: underline;
 }
 
@@ -72,7 +76,7 @@ nav > a:hover {
 }
 
 .button {
-  margin: 30px 0;
+  margin: 30px 10px;
   padding: 10px 20px;
   background-color: #f8f8f8;
   font-size: 15px;
@@ -81,4 +85,79 @@ nav > a:hover {
 
 input:hover {
   box-shadow: 0 1px 5px 0 #ccc;
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0f0f0;
+}
+
+.nav-bar img {
+  height: 30px;
+  padding: 15px;
+}
+
+.nav-bar-links {
+  padding: 20px;
+}
+
+h1 {
+  padding: 25px 50px;
+  border-bottom: 1px solid #eee;
+  font-size: 18px;
+  font-weight: bold;
+  color: #d00;
+}
+
+.advanced-search-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  margin: 50px;
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+.input-group {
+  display: flex;
+  font-size: 15px;
+  margin-top: 15px;
+  align-items: center;
+}
+
+.input-group label {
+  flex: 0 0 200px;
+}
+
+.input-group input {
+  flex: 0 1 100%;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+}
+
+.input-group input:hover {
+  box-shadow: none;
+}
+
+.input-group input:focus {
+  border: 1px solid #4d90fe;
+}
+
+.advanced-search-form .button {
+  margin: 20px 0;
+  padding: 8px 16px;
+  border-radius: 3px;
+  align-self: flex-end;
+  font-size: 13px;
+  font-weight: bold;
+  background-color: #4d90fe;
+  color: white;
+}
+
+.advanced-search-form .button:hover {
+  background-color: #357ae8;
 }
