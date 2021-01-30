@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import Http404
 from markdown2 import markdown
 
@@ -21,3 +21,18 @@ def wikipage(request, title):
         "html": markdown(util.get_entry(title)),
         "title": title
     })
+
+
+def search(request):
+    query = request.GET["q"]
+
+    if util.get_entry(query):
+        return redirect(wikipage, query)
+    
+    entries = filter(lambda entry : query in entry, util.list_entries())
+
+    return render(request, "encyclopedia/search.html", {
+        "entries": entries
+    })
+
+    
