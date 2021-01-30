@@ -40,8 +40,12 @@ def search(request):
     })
 
 class NewWikipageForm(forms.Form):
-    title = forms.CharField()
-    content = forms.CharField(widget=forms.Textarea)
+    title = forms.CharField(widget=forms.TextInput(attrs={
+        'class': "form-control"
+    }))
+    content = forms.CharField(widget=forms.Textarea(attrs={
+        "class": "form-control"
+    }))
 
 
 def new(request):
@@ -68,7 +72,9 @@ def new(request):
 
 
 class EditWikipageForm(forms.Form):
-    content = forms.CharField(widget=forms.Textarea)
+    content = forms.CharField(widget=forms.Textarea(attrs={
+        "class": "form-control"
+    }))
 
 
 def edit(request, title):
