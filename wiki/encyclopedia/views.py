@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import Http404
+from django.core.exceptions import PermissionDenied
+from django import forms
+
 from markdown2 import markdown
 
 from . import util
@@ -35,4 +38,29 @@ def search(request):
         "entries": entries
     })
 
+class WikipageForm(forms.Form):
+    title = forms.CharField()
+    content = forms.CharField(widget=forms.Textarea)
+
+
+def new(request):
+    if request.method == "POST":
+        form = WikipageForm(request.POST)
+
+        if not form.is_valid():
+            return render(request, "encyclopedia/new.html", {
+                form
+            })
+
+        title = form.cleaned_data["title"]
+        content = form.cleaned_data["content"]
+
+        if title in util.list_entries():
+            raise PermissionDenied(f'Wikipage for title "{title}" already exists')
+        
+        util.save_entry(title, content)
+        return redirect(wikipage, title)
     
+    return render(request, "encyclopedia/new.html", {
+        "form": WikipageForm()
+    })
