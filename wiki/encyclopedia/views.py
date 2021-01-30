@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import Http404
 from django.core.exceptions import PermissionDenied
 from django import forms
+from random import choice
 
 from markdown2 import markdown
 
@@ -91,3 +92,8 @@ def edit(request, title):
         "form": EditWikipageForm({"content": content}),
         "title": title
     })
+
+
+def random(request):
+    title = choice(util.list_entries())
+    return redirect(wikipage, title)
