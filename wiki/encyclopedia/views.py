@@ -38,18 +38,18 @@ def search(request):
         "entries": entries
     })
 
-class WikipageForm(forms.Form):
+class NewWikipageForm(forms.Form):
     title = forms.CharField()
     content = forms.CharField(widget=forms.Textarea)
 
 
 def new(request):
     if request.method == "POST":
-        form = WikipageForm(request.POST)
+        form = NewWikipageForm(request.POST)
 
         if not form.is_valid():
             return render(request, "encyclopedia/new.html", {
-                form
+                "form": form
             })
 
         title = form.cleaned_data["title"]
@@ -62,5 +62,32 @@ def new(request):
         return redirect(wikipage, title)
     
     return render(request, "encyclopedia/new.html", {
-        "form": WikipageForm()
+        "form": NewWikipageForm()
+    })
+
+
+class EditWikipageForm(forms.Form):
+    content = forms.CharField(widget=forms.Textarea)
+
+
+def edit(request, title):
+    if request.method == "POST":
+        form = EditWikipageForm(request.POST)
+
+        if not form.is_valid():
+            return render(request, "encyclopedia/edit.html", {
+                "form": form,
+                "title": title
+            })
+
+        content = form.cleaned_data["content"]
+
+        util.save_entry(title, content)
+        return redirect(wikipage, title)
+
+    content = util.get_entry(title)
+
+    return render(request, "encyclopedia/edit.html", {
+        "form": EditWikipageForm({"content": content}),
+        "title": title
     })
