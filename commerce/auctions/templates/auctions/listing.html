@@ -1,0 +1,88 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Listing: {{ listing.title }}</h2>
+    <p>
+        {% if user.is_authenticated %}
+            {% if listing not in user.watchlist.all %}    
+                <a href="{% url 'add_watchlist' listing.id %}" class="btn btn-success btn-sm" href="">Watchlist</a>
+            {% else %}
+                <a href="{% url 'add_watchlist' listing.id %}" class="btn btn-secondary btn-sm" href="">Watchlist</a>
+            {% endif %}
+        {% endif %}
+
+        {% if user == listing.owner and listing.active %}
+            <a href="{% url 'close' listing.id %}" class="btn btn-danger btn-sm" href="">Close</a>
+        {% elif not listing.active and user == highest_bidder %}
+            (Closed. You won the auction!)
+        {% elif not listing.active %}
+            (Closed)
+        {% endif %}
+    </p>
+
+    <img class="listing-img" src="{{ listing.image_url }}" alt="Listing picture">
+    <p>{{ listing.description }}</p>
+
+    <h3>Price: ${{  highest_bid_value }}.00</h3>
+    <p>
+        {{ bid_count }} bid(s) so far.
+
+        {% if highest_bidder == user %}
+            Your bid is the highest bid.
+        {% endif %}
+    </p>
+
+    {% if user.is_authenticated %}
+        {% if listing.active %}
+            <form action="{% url 'bid' listing.id %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input class="form-control" min="{{ highest_bid_value | add:1 }}" type="number" name="value" value="{{ highest_bid_value | add:1 }}">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Place Bid">
+                </div>
+            </form>
+        {% else %}
+            <p>No more bids. The listing is closed.</p>
+        {% endif %}
+    {% else %}
+        <p>Log in to bid.</p>
+    {% endif %}
+
+    <h3>Details</h3>
+    <ul>
+        <li>Listed By: {{ listing.owner }}</li>
+        <li>Categories:
+            <ul>
+                {% for category in listing.categories.all %}
+                    <li>{{ category }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Comments</h3>
+
+    <ul class="list-group">
+        {% for comment in listing.comments.all %}
+            <li class="list-group-item"><strong>{{ comment.user }}</strong><br>{{ comment.content }}</li>
+        {% endfor %}
+    </ul>
+
+    <br>
+
+    {% if user.is_authenticated %}
+        <form action="{% url 'comment' listing.id %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" placeholder="Type your comment..." type="text" name="content">
+            </div>
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="Add Comment">
+            </div>
+        </form>
+    {% else %}
+        <p>Log in to comment.</p>
+    {% endif %}
+{% endblock %}

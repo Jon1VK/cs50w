@@ -1,7 +1,7 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings{% if category %} In Category {{ category }}{% endif %}</h2>
+    <h2>Watchlist</h2>
 
     {% for listing in listings %}
         <a class="card" href="{% url 'show_listing' listing.id %}">

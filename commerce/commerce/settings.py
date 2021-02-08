@@ -59,6 +59,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'auctions.context_processors.categories',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -82,6 +83,7 @@ DATABASES = {
 }
 
 AUTH_USER_MODEL = 'auctions.User'
+LOGIN_URL = 'login'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
