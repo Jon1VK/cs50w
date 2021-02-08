@@ -20,7 +20,9 @@
         {% endif %}
     </p>
 
-    <img class="listing-img" src="{{ listing.image_url }}" alt="Listing picture">
+    {% if listing.image_url %}
+        <img class="listing-img" src="{{ listing.image_url }}" alt="Listing picture">
+    {% endif %}
     <p>{{ listing.description }}</p>
 
     <h3>Price: ${{  highest_bid_value }}.00</h3>

@@ -75,7 +75,7 @@ def bid(request, id):
         bids = Bid.objects.filter(listing=listing)
         highest_bid = bids.order_by("value").last()
 
-        if not highest_bid or bid.value > highest_bid.value:
+        if bid.value > listing.starting_bid and (not highest_bid or bid.value > highest_bid.value):
             bid.user = request.user
             bid.listing = listing
             bid.save()
