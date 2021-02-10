@@ -4,13 +4,24 @@ textarea {
 
 .list-group-item {
     display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
-.list-group-item strong, .list-group-item time {
+.list-group-item strong, .list-group-item time, .list-group-item button {
     flex: 0 0 auto;
 }
 
 .list-group-item span {
     flex: 1 1 auto;
     margin: 0 20px;
+}
+
+.list-group-item button {
+    margin-left: 20px;
+    z-index: 9999;
+}
+
+.read {
+    background-color: lightgray;
 }
