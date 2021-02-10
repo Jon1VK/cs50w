@@ -27,3 +27,13 @@ can create listings, add listings to watchlist, bid for listings and comment for
 listings. The owner of the listing can also close the listing as the price of
 the item is high enough. The site also supports Django's Admin Interface to
 modify records stored in the database.
+
+## Project 3: Mail
+
+Project 3 is a single page Mailbox web app. The backend implemantiton was
+given by CS50W authors. Frontend is implemented as vanilla JS. User's can
+change to inbox, sent and archived mailboxes by clicking buttons in the nav.
+Compose button is used to load view in which user can compose an email and
+send it to recipients. JS fetch is used to send requests to send, edit and
+get email data from server. JS is used to show and alter DOM asynchronously
+as fetch requests are sent to backend.
